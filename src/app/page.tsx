@@ -5,6 +5,7 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import TypewriterText from '@/components/TypewriterText';
 import FlipCard from '@/components/FlipCard';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -44,34 +45,62 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative z-10 text-center px-4"
           >
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/profile.jpg"
+                alt="Saathvik Chepyala profile photo"
+                width={240}
+                height={240}
+                className="rounded-xl border-4 border-gray-700 shadow-lg object-cover"
+                priority
+              />
+            </div>
             <TypewriterText 
               text="Saathvik Chepyala"
               className="text-6xl font-bold mb-4"
             />
-            <p className="text-xl text-gray-300 mb-8">PM • SWE • Builder of useful things</p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-colors"
-            >
-              See My Work
-            </motion.button>
+            <p className="text-2xl text-gray-300 mb-8 leading-snug">
+              CS &amp; Econ @ Texas
+            </p>
+            <div className="flex flex-col items-center">
+              <div className="flex flex-row justify-center gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full font-semibold transition-colors"
+                >
+                  See My Work
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full font-semibold transition-colors"
+                >
+                  Contact
+                </motion.button>
+              </div>
+            </div>
           </motion.div>
         </section>
 
         {/* About Section */}
         <section id="about" className="min-h-screen py-32 px-4 max-w-4xl mx-auto flex items-center">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, filter: 'blur(5px)' }}
+            whileInView={{ opacity: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 0.1 }}
             viewport={{ once: true }}
             className="w-full"
           >
             <h2 className="text-4xl font-bold mb-8">About Me</h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              I'm Saathvik Chepyala — a CS & Econ student at UT Austin, driven by a passion for combining design, engineering, and strategy to build better tools and systems. I've explored everything from backend APIs to behavioral research, and I'm just getting started.
+            <p className="text-gray-300 text-lg leading-relaxed whitespace-pre-line">
+I'm Saathvik — a CS and Econ student at UT Austin. I like asking questions, mostly because I'm curious how things work and why people do what they do. Sometimes that means building out a product idea, other times it's just a random deep dive from my phone at 1 a.m.
+
+I think a lot about decision-making, design, and how technology can actually make things simpler instead of more complicated. I'm drawn to tools that feel intuitive and ideas that solve problems in quiet, useful ways.
+
+This site's where I'll be sharing projects I've built, things I've written, and whatever else I get into along the way.
             </p>
           </motion.div>
         </section>
@@ -129,7 +158,9 @@ export default function Home() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                href="https://github.com/yourusername"
+                href="https://github.com/Saathvik-Chepyala"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
               >
                 <Github size={40} />
@@ -137,7 +168,9 @@ export default function Home() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/saathvik-chepyala/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
               >
                 <Linkedin size={40} />
@@ -145,7 +178,7 @@ export default function Home() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                href="mailto:your.email@example.com"
+                href="mailto:saathvikchepyala@utexas.edu"
                 className="text-gray-300 hover:text-white transition-colors"
               >
                 <Mail size={40} />
@@ -154,6 +187,9 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <footer className="w-full bg-gray-900 text-gray-400 text-center py-6 border-t border-gray-800">
+        &copy; {new Date().getFullYear()} Saathvik Chepyala. All rights reserved.
+      </footer>
     </>
   );
 }
