@@ -1,24 +1,53 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import TypewriterText from '@/components/TypewriterText';
+import FlipCard from '@/components/FlipCard';
+
+const projects = [
+  {
+    title: "Staffing Tracker",
+    description: "Developed an internal tool using ServiceNow's BuildTools to streamline engineering resourcing. The application helps teams efficiently allocate resources, track project assignments, and manage workload distribution. Features include real-time updates, automated notifications, and comprehensive reporting capabilities.",
+    skills: ["ServiceNow", "JavaScript", "API Integration"]
+  },
+  {
+    title: "Insurance-Dentist Finder App",
+    description: "Built a full-stack React Native application that helps patients find in-network dentists based on their insurance coverage. The app includes features like location-based search, insurance verification, appointment scheduling, and reviews integration. Implemented secure authentication and real-time data synchronization.",
+    skills: ["React Native", "Node.js", "SQL", "REST API"]
+  }
+];
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 1000], [0, 100]);
+
   return (
     <>
       <Navigation />
       <main className="min-h-screen bg-gray-900 text-white pt-16">
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800" />
+          {/* Animated Background */}
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"
+            style={{ y: backgroundY }}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-gray-900/50 to-gray-900" />
+            <div className="absolute inset-0 bg-[linear-gradient(45deg,_transparent_25%,_rgba(68,68,68,.2)_50%,_transparent_75%,_transparent_100%)] bg-[length:250%_250%] animate-gradient" />
+          </motion.div>
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="relative z-10 text-center px-4"
           >
-            <h1 className="text-6xl font-bold mb-4">Hi, I'm Saathvik Chepyala</h1>
+            <TypewriterText 
+              text="Saathvik Chepyala"
+              className="text-6xl font-bold mb-4"
+            />
             <p className="text-xl text-gray-300 mb-8">PM • SWE • Builder of useful things</p>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -52,36 +81,21 @@ export default function Home() {
           <div className="max-w-6xl mx-auto w-full">
             <h2 className="text-4xl font-bold mb-16 text-center">Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="bg-gray-700 rounded-lg p-8"
-              >
-                <h3 className="text-2xl font-bold mb-4">Staffing Tracker</h3>
-                <p className="text-gray-300 mb-6 text-lg">Internal tool built with ServiceNow's BuildTools to streamline engineering resourcing.</p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-blue-600 rounded-full text-sm">ServiceNow</span>
-                  <span className="px-3 py-1 bg-blue-600 rounded-full text-sm">JavaScript</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="bg-gray-700 rounded-lg p-8"
-              >
-                <h3 className="text-2xl font-bold mb-4">Insurance-Dentist Finder App</h3>
-                <p className="text-gray-300 mb-6 text-lg">Full-stack React Native app to help patients find in-network dentists based on insurance coverage.</p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-blue-600 rounded-full text-sm">React Native</span>
-                  <span className="px-3 py-1 bg-blue-600 rounded-full text-sm">Node.js</span>
-                  <span className="px-3 py-1 bg-blue-600 rounded-full text-sm">SQL</span>
-                </div>
-              </motion.div>
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <FlipCard
+                    title={project.title}
+                    description={project.description}
+                    skills={project.skills}
+                  />
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
