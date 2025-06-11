@@ -7,16 +7,28 @@ import TypewriterText from '@/components/TypewriterText';
 import FlipCard from '@/components/FlipCard';
 import Image from 'next/image';
 
-const projects = [
+const experiences = [
   {
     title: "Staffing Tracker",
     description: "Developed an internal tool using ServiceNow's BuildTools to streamline engineering resourcing. The application helps teams efficiently allocate resources, track project assignments, and manage workload distribution. Features include real-time updates, automated notifications, and comprehensive reporting capabilities.",
     skills: ["ServiceNow", "JavaScript", "API Integration"]
+  }
+];
+
+const projects = [
+  {
+    title: "Health Quest",
+    description: "Health Quest helps users stay on track with their fitness and nutrition through interactive quests, group challenges, and AI-driven meal analysis. Users can create custom goals, track progress across nutrition and workouts, and collaborate with others through shared health journeys.",
+    skills: ["React", "TypeScript", "Vite", "Bootstrap", "OpenAI API", "Firebase"],
+    githubUrl: "https://github.com/barnetthan/health-quest",
+    youtubeUrl: "https://youtube.com/shorts/g9N_jAFTVTQ?feature=share"
   },
   {
-    title: "Insurance-Dentist Finder App",
-    description: "Built a full-stack React Native application that helps patients find in-network dentists based on their insurance coverage. The app includes features like location-based search, insurance verification, appointment scheduling, and reviews integration. Implemented secure authentication and real-time data synchronization.",
-    skills: ["React Native", "Node.js", "SQL", "REST API"]
+    title: "Dental Connect",
+    description: "Dental Connect is a platform to help patients find in-network dentists based on their insurance coverage. Features include a location-based search, insurance verification, appointment scheduling, and more.",
+    skills: ["React Native", "Node.js", "SQL", "REST API"],
+    githubUrl: "https://github.com/Saathvik-Chepyala/dentalConnect",
+    youtubeUrl: "https://youtube.com/shorts/sVtJKbZYmEw?feature=share"
   }
 ];
 
@@ -27,18 +39,17 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-gray-900 text-white pt-16">
-        {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
-          {/* Animated Background */}
-          <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"
-            style={{ y: backgroundY }}
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-gray-900/50 to-gray-900" />
-            <div className="absolute inset-0 bg-[linear-gradient(45deg,_transparent_25%,_rgba(68,68,68,.2)_50%,_transparent_75%,_transparent_100%)] bg-[length:250%_250%] animate-gradient" />
-          </motion.div>
+      <main className="min-h-screen text-white pt-16 relative overflow-x-hidden">
+        {/* Animated Background (fixed, covers viewport, vibrant and animated) */}
+        <motion.div 
+          className="fixed inset-0 -z-20 w-full h-full bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"
+          style={{ y: backgroundY }}
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-gray-900/50 to-gray-900" />
+          <div className="absolute inset-0 bg-[linear-gradient(45deg,_transparent_25%,_rgba(68,68,68,.2)_50%,_transparent_75%,_transparent_100%)] bg-[length:250%_250%] animate-gradient" />
+        </motion.div>
 
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -106,7 +117,7 @@ This site's where I'll be sharing projects I've built, things I've written, and 
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="min-h-screen py-32 px-4 bg-gray-800 flex items-center">
+        <section id="projects" className="min-h-screen py-32 px-4 flex items-center">
           <div className="max-w-6xl mx-auto w-full">
             <h2 className="text-4xl font-bold mb-16 text-center">Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -122,6 +133,32 @@ This site's where I'll be sharing projects I've built, things I've written, and 
                     title={project.title}
                     description={project.description}
                     skills={project.skills}
+                    githubUrl={project.githubUrl}
+                    youtubeUrl={project.youtubeUrl}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Experiences Section */}
+        <section id="experiences" className="min-h-screen py-32 px-4 flex items-center">
+          <div className="max-w-6xl mx-auto w-full">
+            <h2 className="text-4xl font-bold mb-16 text-center">Experiences</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={exp.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <FlipCard
+                    title={exp.title}
+                    description={exp.description}
+                    skills={exp.skills}
                   />
                 </motion.div>
               ))}
@@ -151,7 +188,7 @@ This site's where I'll be sharing projects I've built, things I've written, and 
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-20 px-4 bg-gray-800">
+        <section id="contact" className="py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-12">Let's Connect</h2>
             <div className="flex justify-center space-x-8">
@@ -187,7 +224,7 @@ This site's where I'll be sharing projects I've built, things I've written, and 
           </div>
         </section>
       </main>
-      <footer className="w-full bg-gray-900 text-gray-400 text-center py-6 border-t border-gray-800">
+      <footer className="w-full text-gray-300 text-center py-6 border-t border-gray-800 bg-gray-900/80">
         &copy; {new Date().getFullYear()} Saathvik Chepyala. All rights reserved.
       </footer>
     </>
